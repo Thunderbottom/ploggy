@@ -5,7 +5,7 @@ from ploggy.handlers.json import JSONHandler, JSONLogger
 handler = JSONHandler()
 
 logger = JSONLogger(scope="test app")
-logger.handlers.append(handler)
+logger.register(handler)
 
 
 def log_test():
