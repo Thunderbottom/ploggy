@@ -145,5 +145,5 @@ class Logger:
             return partial(self.log, self._levels[name])
         except KeyError:
             raise AttributeError(
-                f"'{self._class__.__name__}' object has no attribute '{name}'"
+                f"'{self.__class__.__name__}' object has no attribute '{name}'"
             )
