@@ -83,18 +83,14 @@ class JSONHandler(Handler):
     level: Level = WARN
     pipe: IO = stderr
 
-    def format(self, entry: JSONEntry) -> Dict[str, Any]:
-        # caller holds the stack entry for the calling
-        # function. We skip the first 5 frames cause they
-        # consist of calls internal to the logging library.
-        caller = entry.line[5]
+    def format(self, line_ctx: str, entry: JSONEntry) -> Dict[str, Any]:
         params = {}
         if entry.params is not None:
             params = {str(key): str(val) for key, val in entry.params.items()}
 
         return {
             "lvl": entry.level.name.casefold(),
-            "line": f"{caller.filename}:{caller.lineno}",
+            "line": line_ctx,
             "msg": entry.message,
             "p": params,
             "sc": entry.scope,
